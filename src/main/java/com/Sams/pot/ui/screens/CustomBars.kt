@@ -44,7 +44,6 @@ data class BottomNavItem(
 fun BottomNav(navController: NavController){
     val items=listOf(
         BottomNavItem(Home,"Home",Icons.Default.Home),
-        BottomNavItem(Dashboard,"Dashboard",Icons.Default.AccountBox)
     )
     NavigationBar (
         contentColor=Color.Blue,

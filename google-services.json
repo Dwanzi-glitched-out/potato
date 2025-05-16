@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "997768567691",
+    "project_id": "mashed1-b8ef4",
+    "storage_bucket": "mashed1-b8ef4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:997768567691:android:ae6c7ce3b9da3c215ded8e",
+        "android_client_info": {
+          "package_name": "com.Sams.pot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyeV2V_gVK9uhXpeMJGBOTUr5arS1ptx8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

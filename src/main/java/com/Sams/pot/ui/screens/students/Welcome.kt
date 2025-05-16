@@ -1,4 +1,4 @@
-package com.Sams.pot.ui.screens
+package com.Sams.pot.ui.screens.students
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -23,18 +23,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.Sams.pot.Navigation.Home
 import com.Sams.pot.Navigation.Login
-import com.Sams.pot.Navigation.Loginstudents
-import com.Sams.pot.Navigation.Register
+import com.Sams.pot.Navigation.ROUTE_ADD_ATTACHMENT
+import com.Sams.pot.R
 import com.Sams.pot.ui.screens.BottomNav
 import com.Sams.pot.ui.screens.TopBar
-import com.Sams.pot.R
 
 
 @Composable
-fun HomeScreen(navController: NavController) {
+fun StudHome(navController: NavController) {
     Scaffold(
-        topBar = { TopBar("HOME SCREEN") },
+        topBar = { TopBar("WELCOME ") },
+        bottomBar = {BottomNav(navController)}
     )
     { innerpadding ->
         Box(
@@ -55,44 +56,24 @@ fun HomeScreen(navController: NavController) {
                     modifier = Modifier
                         .size(400.dp)
                 )
-                Button(onClick = {navController.navigate(Register)}) {
-                    Text("REGISTER")
-                }
                 Text(
-                    text = "__OR LOGIN AS___",
+                    text = "__SEND YOUR REPORTS BELOW__",
                     fontSize = 25.sp,
                     color = Color.White,
                     fontFamily = FontFamily.Cursive
                 )
                 Button(
-                    onClick = { navController.navigate(Loginstudents) },
+                    onClick = { navController.navigate(ROUTE_ADD_ATTACHMENT) },
                     modifier = Modifier
                         .padding(10.dp),
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Green,
+                        containerColor = Color.White,
                         contentColor = Color.Black
                     )
                 ) {
                     Text(
-                        "STUDENT",
-                        color = Color.Black,
-                        fontSize = 20.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
-                Button(
-                    onClick = { navController.navigate(Login) },
-                    modifier = Modifier
-                        .padding(10.dp),
-                    shape = RoundedCornerShape(12.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Red,
-                        contentColor = Color.Black
-                    )
-                ) {
-                    Text(
-                        "TEACHER",
+                        "REPORT",
                         color = Color.Black,
                         fontSize = 20.sp,
                         fontWeight = FontWeight.Bold

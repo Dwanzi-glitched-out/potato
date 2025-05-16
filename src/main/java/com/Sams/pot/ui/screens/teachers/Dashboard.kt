@@ -1,6 +1,6 @@
-package com.Sams.pot.ui.screens
+package com.Sams.pot.ui.screens.teachers
 
-import androidx.compose.foundation.background
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,7 +15,7 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Face
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -26,17 +26,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.Sams.pot.Navigation.Brave
-import com.Sams.pot.Navigation.Chrome
-import com.Sams.pot.Navigation.Edge
-import com.Sams.pot.Navigation.Firefox
-import com.Sams.pot.Navigation.Google
-import com.Sams.pot.Navigation.Opera
+import com.Sams.pot.Navigation.ROUTE_VIEW_ATTACHMENT
+import com.Sams.pot.Navigation.ROUTE_VIEW_STUDENTS
+import com.Sams.pot.R
+import com.Sams.pot.ui.screens.BottomNav
+import com.Sams.pot.ui.screens.TopBar
 
 
 @Composable
@@ -50,10 +51,17 @@ fun Dash(navController: NavController){
                 .fillMaxSize()
                 .padding(innerpadding)
         ) {
+            Image(
+                painter = painterResource(R.drawable.img_2),
+                contentDescription = "Background image",
+                contentScale = ContentScale.FillBounds,
+                modifier = Modifier
+                    .padding(innerpadding)
+                    .size(700.dp)
+            )
             Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(color = Color.White)
                     .padding(20.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
@@ -68,56 +76,20 @@ fun Dash(navController: NavController){
                 {
                     item {
                         dashcard(
-                            title = "CHROME",
-                            description = "Class of 30",
-                            icon = Icons.Default.Person,
-                            backgroundcolor = (Color.Yellow),
-                            onClick = {navController.navigate(Chrome)}
+                            title = "STUDENTS",
+                            description = "View enrolled students",
+                            icon = Icons.Default.Face,
+                            backgroundcolor = (Color.Black),
+                            onClick = {navController.navigate(ROUTE_VIEW_STUDENTS)}
                         )
                     }
                     item {
                         dashcard(
-                            title = "FIREFOX",
-                            description = "Class of 30",
-                            icon = Icons.Default.Person,
-                            backgroundcolor = (Color.Red),
-                            onClick = {navController.navigate(Firefox)}
-                        )
-                    }
-                    item {
-                        dashcard(
-                            title = "EDGE",
-                            description = "Class of 35",
-                            icon = Icons.Default.Person,
-                            backgroundcolor = (Color.Blue),
-                            onClick = {navController.navigate(Edge)}
-                        )
-                    }
-                    item {
-                        dashcard(
-                            title = "OPERA",
-                            description = "Class of 30",
-                            icon = Icons.Default.Person,
-                            backgroundcolor = (Color.Magenta),
-                            onClick = {navController.navigate(Opera)}
-                        )
-                    }
-                    item {
-                        dashcard(
-                            title = "GOOGLE",
-                            description = "Class of 40",
-                            icon = Icons.Default.Person,
-                            backgroundcolor = (Color.Transparent),
-                            onClick = {navController.navigate(Google)}
-                        )
-                    }
-                    item {
-                        dashcard(
-                            title = "BRAVE",
-                            description = "Class of 30",
-                            icon = Icons.Default.Person,
-                            backgroundcolor = (Color.Unspecified),
-                            onClick = {navController.navigate(Brave)}
+                            title = "ATTACHMENTS",
+                            description = "View sent attachments",
+                            icon = Icons.Default.Face,
+                            backgroundcolor = (Color.Black),
+                            onClick = {navController.navigate(ROUTE_VIEW_ATTACHMENT)}
                         )
                     }
                 }
@@ -155,9 +127,9 @@ fun dashcard(
                 modifier = Modifier
                     .size(32.dp)
             )
-            Text(text = title, fontFamily = FontFamily.Cursive, fontWeight = FontWeight.Bold, color = Color.Red,
+            Text(text = title, fontFamily = FontFamily.Monospace, fontWeight = FontWeight.Bold, color = Color.White,
                 fontSize=15.sp)
-            Text(text = description,color = Color.Black,fontSize=13.sp)
+            Text(text = description,color = Color.White,fontSize=15.sp)
         }
     }
 }
