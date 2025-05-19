@@ -55,11 +55,16 @@ fun HomeScreen(navController: NavController) {
                     modifier = Modifier
                         .size(400.dp)
                 )
-                Button(onClick = {navController.navigate(Register)}) {
+                Button(onClick = {navController.navigate(Register)},
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = Color.Red,
+                    contentColor = Color.Black
+                )
+                ) {
                     Text("REGISTER")
                 }
                 Text(
-                    text = "__OR LOGIN AS___",
+                    text = "___ OR LOGIN AS ___",
                     fontSize = 25.sp,
                     color = Color.White,
                     fontFamily = FontFamily.Cursive
@@ -70,7 +75,7 @@ fun HomeScreen(navController: NavController) {
                         .padding(10.dp),
                     shape = RoundedCornerShape(12.dp),
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = Color.Green,
+                        containerColor = Color.Red,
                         contentColor = Color.Black
                     )
                 ) {

@@ -111,13 +111,6 @@ fun LoginStudent(navController: NavController){
         {
             Text(text = "Login", fontSize = 20.sp)
         }
-        Spacer(modifier = Modifier.height(10.dp))
-        Text(
-            text = "DON'T HAVE AN ACCOUNT??ENROLL NOW",
-            modifier = Modifier
-                .align(Alignment.CenterHorizontally)
-                .clickable{navController.navigate(ROUTE_ADD_STUDENT)}
-        )
     }
 }
 

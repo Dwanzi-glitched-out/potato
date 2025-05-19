@@ -85,8 +85,8 @@ fun Dash(navController: NavController){
                     }
                     item {
                         dashcard(
-                            title = "ATTACHMENTS",
-                            description = "View sent attachments",
+                            title = "REPORTS",
+                            description = "View Reports",
                             icon = Icons.Default.Face,
                             backgroundcolor = (Color.Black),
                             onClick = {navController.navigate(ROUTE_VIEW_ATTACHMENT)}
