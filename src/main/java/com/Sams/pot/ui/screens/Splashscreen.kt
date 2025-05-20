@@ -28,7 +28,7 @@ fun SplashScreen(onNavigateToNext: () -> Unit){
     Box(modifier = Modifier.fillMaxSize().background(Color.Black),
         contentAlignment = Alignment.Center){
         Column (horizontalAlignment = Alignment.CenterHorizontally){
-            Image(painter = painterResource(id = R.drawable.img),
+            Image(painter = painterResource(id = R.drawable.img_2),
                 contentDescription = "App Logo",
                 modifier = Modifier.size(300.dp))
             Text(text = "YOUKOSO",

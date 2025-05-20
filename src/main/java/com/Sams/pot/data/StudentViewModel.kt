@@ -40,9 +40,6 @@ import java.io.File
 class StudentViewModel: ViewModel() {
     private val database = FirebaseDatabase.getInstance().reference.child("Students")
     private val databases = FirebaseDatabase.getInstance().reference.child("Reports")
-    private val _isLoading = MutableStateFlow(false)
-    private val _errorMessage = MutableStateFlow<String?>(null)
-    private val mAuth: FirebaseAuth = FirebaseAuth.getInstance()
     private fun getImgurService(): ImgurService {
         val logging = HttpLoggingInterceptor()
         logging.level = HttpLoggingInterceptor.Level.BODY

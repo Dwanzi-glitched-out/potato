@@ -19,10 +19,10 @@ import kotlinx.coroutines.flow.StateFlow
 
 class AuthViewModel : ViewModel() {
     private val mAuth = FirebaseAuth.getInstance()
-    private val db    = FirebaseDatabase.getInstance().getReference("users")
+    private val db = FirebaseDatabase.getInstance().getReference("users")
 
     // expose loading & error as before
-    private val _isLoading    = MutableStateFlow(false)
+    private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
     private val _errorMessage = MutableStateFlow<String?>(null)
@@ -43,6 +43,7 @@ class AuthViewModel : ViewModel() {
             Toast.makeText(context, "Email and password required", Toast.LENGTH_LONG).show()
             return
         }
+
         _isLoading.value = true
 
         mAuth.signInWithEmailAndPassword(email, password)
@@ -50,12 +51,14 @@ class AuthViewModel : ViewModel() {
                 _isLoading.value = false
 
                 if (!task.isSuccessful) {
-                    _errorMessage.value = task.exception?.message
-                    Toast.makeText(context, "Login failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                    // surface the FirebaseAuth exception message
+                    val message = task.exception?.message ?: "Unknown error"
+                    _errorMessage.value = message
+                    Toast.makeText(context, "Login failed: $message", Toast.LENGTH_LONG).show()
                     return@addOnCompleteListener
                 }
 
-                // now fetch the role from RTDB
+                // fetch the user's role from RTDB
                 val uid = mAuth.currentUser?.uid ?: return@addOnCompleteListener
                 db.child(uid).child("role")
                     .get()
@@ -63,31 +66,37 @@ class AuthViewModel : ViewModel() {
                         val role = snapshot.getValue(String::class.java)
                         if (role == expectedRole) {
                             Toast.makeText(context, "Welcome, $role!", Toast.LENGTH_SHORT).show()
+
                             navController.navigate(onSuccessDestination) {
-                                // clear backstack so user can't go back to login
-                                popUpTo(0)
+                                // pop everything off so you can't go back to login
+                                popUpTo(navController.graph.startDestinationId) {
+                                    inclusive = true
+                                }
                             }
                         } else {
-                            // wrong role: immediately sign out
+                            // wrong role: sign out immediately
                             mAuth.signOut()
                             Toast.makeText(
                                 context,
-                                "Unauthorized: you are a “$role”, not a “$expectedRole”.",
+                                "Unauthorized: you are a \"$role\", not a \"$expectedRole\".",
                                 Toast.LENGTH_LONG
                             ).show()
                         }
                     }
                     .addOnFailureListener { dbEx ->
-                        // could not read role
+                        // failed to read role: sign out and show the DB exception
                         mAuth.signOut()
+                        val dbMsg = dbEx.message ?: "Unknown error"
                         Toast.makeText(
                             context,
-                            "Could not verify role: ${dbEx.message}",
+                            "Could not verify role: $dbMsg",
                             Toast.LENGTH_LONG
                         ).show()
                     }
             }
     }
+
+
     fun register(
         name: String,
         email: String,
@@ -115,9 +124,10 @@ class AuthViewModel : ViewModel() {
                         "role" to role
                     )
 
-                    db.child("users").child(uid).setValue(userMap)
+                    db.child(uid).setValue(userMap)
                         .addOnSuccessListener {
-                            Toast.makeText(context, "Registered as $role!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, "Registered as $role!", Toast.LENGTH_SHORT)
+                                .show()
                             // Navigate to role-based dashboard
                             if (role == "teacher") {
                                 navController.navigate(Dashboard)
@@ -126,13 +136,17 @@ class AuthViewModel : ViewModel() {
                             }
                         }
                         .addOnFailureListener {
-                            Toast.makeText(context, "Failed to save user data", Toast.LENGTH_LONG).show()
+                            Toast.makeText(context, "Failed to save user data", Toast.LENGTH_LONG)
+                                .show()
                         }
                 } else {
                     _errorMessage.value = task.exception?.message
-                    Toast.makeText(context, "Registration failed: ${task.exception?.message}", Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context,
+                        "Registration failed: PLEASE TRY AGAIN",
+                        Toast.LENGTH_LONG
+                    ).show()
                 }
             }
     }
-
 }

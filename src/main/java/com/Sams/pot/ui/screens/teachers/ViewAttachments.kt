@@ -2,7 +2,9 @@ package com.Sams.pot.ui.screens.teachers
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -28,6 +30,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
@@ -39,134 +42,149 @@ import com.Sams.pot.R
 import com.Sams.pot.data.StudentViewModel
 import com.Sams.pot.model.Reportmodel
 
-
 @Composable
-fun ViewAttachments(navController: NavHostController){
+fun ViewAttachments(navController: NavHostController) {
     val context = LocalContext.current
-    val ReportRepository = StudentViewModel()
+    val reportRepository = StudentViewModel()
     val emptyUploadState = remember {
-        mutableStateOf(
-            Reportmodel("","","",""))
+        mutableStateOf(Reportmodel("", "", "", ""))
     }
     val emptyUploadListState = remember {
         mutableStateListOf<Reportmodel>()
     }
-    val reports = ReportRepository.viewReports(
-        emptyUploadState,emptyUploadListState, context)
-    Column (modifier = Modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally){
+    val reports = reportRepository.viewReports(emptyUploadState, emptyUploadListState, context)
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        // Background
+        Image(
+            painter = painterResource(R.drawable.img_1),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+
+        // Overlay
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.Black.copy(alpha = 0.8f))
+        )
+
         Column(
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+                .verticalScroll(rememberScrollState()),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "All Attachments",
-                fontSize = 30.sp,
-                fontFamily = FontFamily.SansSerif,
-                color= Color.Black)
-            Spacer(modifier = Modifier.height(20.dp))
+            Text(
+                text = "ALL ATTACHMENTS",
+                fontSize = 28.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White,
+                fontFamily = FontFamily.Serif,
+                modifier = Modifier.padding(vertical = 10.dp)
+            )
 
-            LazyColumn(){
-                items(reports){
+            Spacer(modifier = Modifier.height(10.dp))
+
+            LazyColumn {
+                items(reports) {
                     ReportItem(
                         name = it.name,
                         course = it.course,
                         reportId = it.reportId,
                         report = it.report,
                         navController = navController,
-                        ReportRepository = ReportRepository
-
+                        ReportRepository = reportRepository
                     )
                 }
-
             }
         }
     }
 }
 @Composable
-fun ReportItem(name:String,course:String,
-                report: String,reportId:String,navController: NavHostController,
-                ReportRepository: StudentViewModel
+fun ReportItem(
+    name: String,
+    course: String,
+    report: String,
+    reportId: String,
+    navController: NavHostController,
+    ReportRepository: StudentViewModel
 ) {
     val context = LocalContext.current
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Card(
+
+    Card(
+        modifier = Modifier
+            .padding(vertical = 8.dp)
+            .fillMaxWidth(),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.DarkGray)
+    ) {
+        Column(
             modifier = Modifier
-                .padding(10.dp)
-                .height(210.dp),
-            shape = MaterialTheme.shapes.medium,
-            colors = CardDefaults.cardColors
-                (containerColor = Color.Black)
-        )
-
-        {
-            Row {
-                Image(
-                    painter = painterResource(R.drawable.img_2),
-                    contentDescription = "Background image"
+                .padding(16.dp)
+        ) {
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "STUDENT NAME:",
+                    color = Color.LightGray,
+                    fontSize = 14.sp
                 )
-                Column {
+                Text(
+                    text = name,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+            }
 
-                    Row(horizontalArrangement = Arrangement.SpaceBetween) {
-                        Button(
-                            onClick = {
-                                ReportRepository.deleteReport(context, reportId, navController)
+            Spacer(modifier = Modifier.height(8.dp))
 
-                            },
-                            shape = RoundedCornerShape(10.dp),
-                            colors = ButtonDefaults.buttonColors(Color.Red)
-                        ) {
-                            Text(
-                                text = "REMOVE",
-                                color = Color.Black,
-                                fontWeight = FontWeight.Bold,
-                                fontSize = 16.sp
-                            )
-                        }
-                    }
+            Row(
+                horizontalArrangement = Arrangement.SpaceBetween,
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Text(
+                    text = "COURSE:",
+                    color = Color.LightGray,
+                    fontSize = 14.sp
+                )
+                Text(
+                    text = course,
+                    color = Color.White,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 18.sp
+                )
+            }
 
-                }
-                Column(
-                    modifier = Modifier
-                        .padding(vertical = 10.dp, horizontal = 10.dp)
-                        .verticalScroll(rememberScrollState())
-                ) {
-                    Text(
-                        text = "STUDENT NAME",
-                        color = Color.Black,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = name,
-                        color = Color.White,
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = "STUDENT COURSE",
-                        color = Color.Black,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = course,
-                        color = Color.White,
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = "REPORT",
-                        color = Color.Black,
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                    Text(
-                        text = report,
-                        color = Color.White,
-                        fontSize = 28.sp,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+            Spacer(modifier = Modifier.height(8.dp))
+
+            Text(
+                text = "REPORT:",
+                color = Color.LightGray,
+                fontSize = 14.sp
+            )
+            Text(
+                text = report,
+                color = Color.White,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Normal,
+                modifier = Modifier.padding(bottom = 10.dp)
+            )
+
+            Button(
+                onClick = {
+                    ReportRepository.deleteReport(context, reportId, navController)
+                },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Red),
+                shape = RoundedCornerShape(8.dp),
+                modifier = Modifier.align(Alignment.End)
+            ) {
+                Text(text = "REMOVE", color = Color.White)
             }
         }
     }
