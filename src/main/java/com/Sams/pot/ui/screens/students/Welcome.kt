@@ -35,7 +35,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.Sams.pot.Navigation.ROUTE_ADD_ATTACHMENT
-import com.Sams.pot.Navigation.ROUTE_VIEW_STUDENTS
 import com.Sams.pot.R
 import com.Sams.pot.ui.screens.BottomNav
 import com.Sams.pot.ui.screens.TopBar
@@ -74,6 +73,13 @@ fun StudHome(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
+                Text(
+                    text = "WELCOME TO E-TECH",
+                    fontSize = 35.sp,
+                    color = Color.White, // White text
+                    fontFamily = FontFamily.Cursive,
+                    fontWeight = FontWeight.Bold
+                )
                 // Profile Image
                 Image(
                     painter = painterResource(id = R.drawable.img),

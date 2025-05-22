@@ -41,9 +41,8 @@ import androidx.navigation.NavHostController
 import com.Sams.pot.R
 import com.Sams.pot.data.StudentViewModel
 import com.Sams.pot.model.Reportmodel
-
 @Composable
-fun ViewAttachments(navController: NavHostController) {
+fun ViewReports(navController: NavHostController) {
     val context = LocalContext.current
     val reportRepository = StudentViewModel()
     val emptyUploadState = remember {
@@ -70,39 +69,40 @@ fun ViewAttachments(navController: NavHostController) {
                 .background(Color.Black.copy(alpha = 0.8f))
         )
 
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState()),
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "ALL ATTACHMENTS",
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                fontFamily = FontFamily.Serif,
-                modifier = Modifier.padding(vertical = 10.dp)
-            )
+            // Header
+            item {
+                Text(
+                    text = "ALL ATTACHMENTS",
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    fontFamily = FontFamily.Serif,
+                    modifier = Modifier.padding(vertical = 10.dp)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+            }
 
-            Spacer(modifier = Modifier.height(10.dp))
-
-            LazyColumn {
-                items(reports) {
-                    ReportItem(
-                        name = it.name,
-                        course = it.course,
-                        reportId = it.reportId,
-                        report = it.report,
-                        navController = navController,
-                        ReportRepository = reportRepository
-                    )
-                }
+            // Report list
+            items(reports) {
+                ReportItem(
+                    name = it.name,
+                    course = it.course,
+                    reportId = it.reportId,
+                    report = it.report,
+                    navController = navController,
+                    ReportRepository = reportRepository
+                )
             }
         }
     }
 }
+
 @Composable
 fun ReportItem(
     name: String,

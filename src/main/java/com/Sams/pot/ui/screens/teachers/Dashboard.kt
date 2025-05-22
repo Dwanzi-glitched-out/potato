@@ -36,11 +36,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.Sams.pot.Navigation.ROUTE_VIEW_ATTACHMENT
-import com.Sams.pot.Navigation.ROUTE_VIEW_STUDENTS
+import com.Sams.pot.Navigation.Home
+import com.Sams.pot.Navigation.VIEW_REPORTS
+import com.Sams.pot.Navigation.VIEW_STUDENTS
 import com.Sams.pot.R
 import com.Sams.pot.ui.screens.BottomNav
 import com.Sams.pot.ui.screens.TopBar
+import com.Sams.pot.ui.theme.students.ViewStudent
 
 @Composable
 fun Dash(navController: NavController) {
@@ -87,7 +89,7 @@ fun Dash(navController: NavController) {
                             title = "STUDENTS",
                             description = "View enrolled students",
                             icon = Icons.Default.Face,
-                            onClick = { navController.navigate(ROUTE_VIEW_STUDENTS) }
+                            onClick = { navController.navigate(VIEW_STUDENTS) }
                         )
                     }
                     item {
@@ -95,7 +97,7 @@ fun Dash(navController: NavController) {
                             title = "REPORTS",
                             description = "View Reports",
                             icon = Icons.Default.Notifications,
-                            onClick = { navController.navigate(ROUTE_VIEW_ATTACHMENT) }
+                            onClick = { navController.navigate(VIEW_REPORTS) }
                         )
                     }
                 }

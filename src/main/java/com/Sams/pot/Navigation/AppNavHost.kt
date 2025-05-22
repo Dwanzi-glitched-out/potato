@@ -12,11 +12,12 @@ import com.Sams.pot.ui.screens.teachers.LoginScreen
 import com.Sams.pot.ui.screens.RegisterScreen
 import com.Sams.pot.ui.screens.SplashScreen
 import com.Sams.pot.ui.screens.students.AddAttachment
-import com.Sams.pot.ui.screens.teachers.ViewAttachments
 import com.Sams.pot.ui.screens.students.LoginStudent
 import com.Sams.pot.ui.screens.students.StudHome
+import com.Sams.pot.ui.screens.teachers.ViewReports
 import com.Sams.pot.ui.theme.students.AddstudentScreen
-import com.Sams.pot.ui.theme.students.ViewStudents
+import com.Sams.pot.ui.theme.students.ViewStudent
+
 
 @Composable
 fun AppNavHost(
@@ -33,9 +34,9 @@ fun AppNavHost(
         composable (Login){ LoginScreen(navController) }
         composable (Home){ HomeScreen(navController) }
         composable(ROUTE_ADD_STUDENT) { AddstudentScreen(navController) }
-        composable(ROUTE_VIEW_STUDENTS){ ViewStudents(navController) }
+        composable(VIEW_STUDENTS){ ViewStudent(navController) }
         composable (ROUTE_ADD_ATTACHMENT){ AddAttachment(navController) }
-        composable (ROUTE_VIEW_ATTACHMENT){ ViewAttachments(navController) }
+        composable (VIEW_REPORTS){ ViewReports(navController) }
         composable (WELCOME){ StudHome(navController) }
         composable (Loginstudents){ LoginStudent(navController) }
     }

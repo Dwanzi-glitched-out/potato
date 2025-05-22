@@ -33,6 +33,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -57,6 +58,13 @@ fun LoginScreen(navController: NavController){
             .background(Color.Black), // Black background
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Text(
+            text = "WELCOME BACK TO E-TECH",
+            fontSize = 35.sp,
+            color = Color.White, // White text
+            fontFamily = FontFamily.Cursive,
+            fontWeight = FontWeight.Bold
+        )
         Text(
             text = "Login!!",
             fontSize = 40.sp,

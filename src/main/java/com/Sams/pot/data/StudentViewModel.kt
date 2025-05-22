@@ -11,8 +11,6 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavController
 import com.Sams.pot.Navigation.Dashboard
 import com.Sams.pot.Navigation.ROUTE_ADD_ATTACHMENT
-import com.Sams.pot.Navigation.ROUTE_VIEW_ATTACHMENT
-import com.Sams.pot.Navigation.ROUTE_VIEW_STUDENTS
 import com.Sams.pot.Navigation.Register
 import com.Sams.pot.Navigation.WELCOME
 import com.Sams.pot.model.Reportmodel

@@ -1,9 +1,7 @@
 package com.Sams.pot.ui.theme.students
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,7 +20,6 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateListOf
@@ -45,19 +42,13 @@ import coil.compose.AsyncImage
 import com.Sams.pot.R
 import com.Sams.pot.data.StudentViewModel
 import com.Sams.pot.model.StudentModel
-
-
-@SuppressLint("ViewModelConstructorInComposable")
 @Composable
-fun ViewStudents(navController: NavHostController) {
+fun ViewStudent(navController: NavHostController) {
     val context = LocalContext.current
     val studentRepository = StudentViewModel()
-    val emptyUploadState = remember {
-        mutableStateOf(StudentModel("", "", "", "", "", ""))
-    }
-    val emptyUploadListState = remember {
-        mutableStateListOf<StudentModel>()
-    }
+    val emptyUploadState = remember { mutableStateOf(StudentModel("", "", "", "", "", "")) }
+    val emptyUploadListState = remember { mutableStateListOf<StudentModel>() }
+
     val students = studentRepository.viewStudents(emptyUploadState, emptyUploadListState, context)
 
     Box(modifier = Modifier.fillMaxSize()) {
@@ -76,39 +67,41 @@ fun ViewStudents(navController: NavHostController) {
                 .background(Color.Black.copy(alpha = 0.8f))
         )
 
-        Column(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(16.dp)
-                .verticalScroll(rememberScrollState()),
+                .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "ALL STUDENTS",
-                fontSize = 28.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                fontFamily = FontFamily.Serif,
-                modifier = Modifier.padding(vertical = 10.dp)
-            )
+            // Header as an item in LazyColumn
+            item {
+                Text(
+                    text = "ALL STUDENTS",
+                    fontSize = 28.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    fontFamily = FontFamily.Serif,
+                    modifier = Modifier.padding(vertical = 10.dp)
+                )
+            }
 
-            LazyColumn {
-                items(students) {
-                    StudentItem(
-                        name = it.name,
-                        gender = it.gender,
-                        course = it.course,
-                        summary = it.summary,
-                        studentId = it.studentId,
-                        imageUrl = it.imageUrl,
-                        navController = navController,
-                        studentRepository = studentRepository
-                    )
-                }
+            // List of students
+            items(students) { student ->
+                StudentItem(
+                    name = student.name,
+                    gender = student.gender,
+                    course = student.course,
+                    summary = student.summary,
+                    studentId = student.studentId,
+                    imageUrl = student.imageUrl, // Adjust if needed
+                    navController = navController,
+                    studentRepository = studentRepository
+                )
             }
         }
     }
 }
+
 @Composable
 fun StudentItem(
     name: String,
@@ -148,7 +141,7 @@ fun StudentItem(
             Column(
                 modifier = Modifier
                     .weight(1f)
-                    .verticalScroll(rememberScrollState())
+
             ) {
                 Text(
                     text = "NAME:",
